@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { JiraIssue } from '../shared/jira-issue.model';
+import { Issue } from '../shared/jira-issue.model';
 import { JiraService } from '../services/jira.service'
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-issue',
@@ -8,11 +9,12 @@ import { JiraService } from '../services/jira.service'
   styleUrls: ['./issue.component.css']
 })
 export class IssueComponent implements OnInit {
-  @Input('issue') Issue: JiraIssue;
+  @Input('issue') Issue: Issue;
 
   constructor(private jiraService: JiraService) { }
 
   ngOnInit() {
+
   }
 
 }

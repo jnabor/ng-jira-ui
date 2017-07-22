@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { JiraIssue } from '../shared/jira-issue.model';
+import { Issue } from '../shared/jira-issue.model';
 import { JiraService } from '../services/jira.service'
 
 @Component({
@@ -8,12 +8,13 @@ import { JiraService } from '../services/jira.service'
   styleUrls: ['./issue-list.component.css']
 })
 export class IssueListComponent implements OnInit {
-  Issues: JiraIssue[];
+  Issues: Issue[];
 
   constructor(private jiraService: JiraService) { }
 
   ngOnInit() {
     this.Issues = this.jiraService.getIssues();
+    console.log(this.Issues);
   }
 
 }
