@@ -37,7 +37,10 @@ export class JiraService {
     }
 
     private getIssuesRemDB(dbRemoteAddress: string) {
-      return this.http.get(dbRemoteAddress)
+      //return this.http.get(dbRemoteAddress)
+      dbRemoteAddress = dbRemoteAddress + '?callback=JSONP_CALLBACK';
+      //return this.json.get(dbRemoteAddress)
+      return this.json.get(dbRemoteAddress)
         .map(
           (response: Response) => {
             const data = response.json();
