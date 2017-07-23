@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Issue } from '../shared/jira-issue.model';
+import { Issue, JiraResponse } from '../shared/jira-issue.model';
 import { JiraService } from '../services/jira.service'
+import { HttpModule, Headers, Http, JsonpModule, Jsonp, Response } from "@angular/http";
 
 @Component({
   selector: 'app-issue-list',
@@ -8,13 +9,21 @@ import { JiraService } from '../services/jira.service'
   styleUrls: ['./issue-list.component.css']
 })
 export class IssueListComponent implements OnInit {
-  Issues: Issue[];
+
+  private firebaseDB = 'https://ng-jira-backend.firebaseio.com/data.json';
+  private JiraRoot: JiraResponse;
 
   constructor(private jiraService: JiraService) { }
 
   ngOnInit() {
-    this.Issues = this.jiraService.getIssues();
-    console.log(this.Issues);
+    this.jiraService.getIssuesRemDB( this.firebaseDB)
+        .subscribe(
+          (jiraRoot: JiraResponse) => {
+            this.JiraRoot = jiraRoot;
+            console.log(this.JiraRoot)
+          },
+          (error) => console.log(error)
+        );
   }
 
 }
