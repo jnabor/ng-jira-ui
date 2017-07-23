@@ -10,7 +10,10 @@ import { getTestBed } from '@angular/core/testing';
 export class JiraService {
     dataChanged = new EventEmitter<JiraResponse>();
     private firebaseDB = 'https://ng-jira-backend.firebaseio.com/data.json';
+    private jiraDB = 'https://jira.atlassian.com/rest/api/2/search?jql=project=BAM'
     //private JiraRootLoc: JiraResponse = require('../../assets/bam.json');
+    //private remoteDB = this.jiraDB;
+    private remoteDB = this.firebaseDB;
     private JiraRootRem: JiraResponse;
 
     constructor(private http: Http, private json: Jsonp) {
@@ -21,7 +24,7 @@ export class JiraService {
       //    (error) => console.log(error)
       //  );
 
-      this.getIssuesRemDB(this.firebaseDB)
+      this.getIssuesRemDB(this.remoteDB)
         .subscribe(
           (jiraRoot: JiraResponse) => {
             this.JiraRootRem = jiraRoot;

@@ -17,10 +17,15 @@ import { MdButtonModule,
          MdGridListModule,
          MdTooltipModule,
          MdSnackBarModule,
-         MdSlideToggleModule } from '@angular/material';
+         MdProgressBarModule,
+         MdSlideToggleModule,
+         MdTableModule } from '@angular/material';
+
+import { DataSource } from '@angular/cdk';
 
 import { JiraService } from './services/jira.service';
-import { IssueComponent } from './issue/issue.component'
+import { IssueComponent } from './issue/issue.component';
+import { ToolbarComponent } from './toolbar/toolbar.component'
 
 // Must export the config
 export const firebaseConfig = {
@@ -35,7 +40,8 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     IssueListComponent,
-    IssueComponent
+    IssueComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +58,9 @@ export const firebaseConfig = {
     MdGridListModule,
     MdTooltipModule,
     MdSnackBarModule,
-    MdSlideToggleModule
+    MdProgressBarModule,
+    MdSlideToggleModule,
+    MdTableModule
   ],
   providers: [JiraService],
   bootstrap: [AppComponent]
