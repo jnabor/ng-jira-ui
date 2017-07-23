@@ -1,13 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Issue, JiraResponse } from '../shared/jira-issue.model';
 import { HttpModule, Headers, Http, JsonpModule, Jsonp, Response } from "@angular/http";
+import{ Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx';
+import { getTestBed } from '@angular/core/testing';
 
 @Injectable()
 export class JiraService {
+    dataChanged = new EventEmitter<JiraResponse>();
     private firebaseDB = 'https://ng-jira-backend.firebaseio.com/data.json';
-    private JiraRootLoc: JiraResponse = require('../../assets/bam.json');
+    //private JiraRootLoc: JiraResponse = require('../../assets/bam.json');
     private JiraRootRem: JiraResponse;
 
     constructor(private http: Http, private json: Jsonp) {
@@ -18,33 +21,38 @@ export class JiraService {
       //    (error) => console.log(error)
       //  );
 
-      this.getIssuesRemDB( this.firebaseDB)
+      this.getIssuesRemDB(this.firebaseDB)
         .subscribe(
           (jiraRoot: JiraResponse) => {
             this.JiraRootRem = jiraRoot;
-            console.log(this.JiraRootRem)
+            this.dataChanged.emit(this.JiraRootRem);
           },
           (error) => console.log(error)
         );
     }
 
-    //private uploadtoFirebase(db: JiraResponse, dbRemoteAddress: string) {
-    //  const header = new Headers({'Content-Type': 'application/json'})
-    //  return this.http.put(dbRemoteAddress, db, { headers: header});
-    //}
+    private uploadtoFirebase(db: JiraResponse, dbRemoteAddress: string) {
+      const header = new Headers({'Content-Type': 'application/json'})
+      return this.http.put(dbRemoteAddress, db, { headers: header});
+    }
 
-    public getIssuesRemDB(dbRemoteAddress: string) {
+    private getIssuesRemDB(dbRemoteAddress: string) {
       return this.http.get(dbRemoteAddress)
         .map(
           (response: Response) => {
             const data = response.json();
             return data
           }
+        )
+        .catch(
+            (error: Response) => {
+              console.log(error);
+              return Observable.throw('Something went wrong');
+            }
         );
     }
 
-    public getIssues(): Issue[] {
-
-      return this.JiraRootLoc.issues.slice();
+    public getIssues(): JiraResponse {
+      return this.JiraRootRem;
     }
 }

@@ -10,20 +10,19 @@ import { HttpModule, Headers, Http, JsonpModule, Jsonp, Response } from "@angula
 })
 export class IssueListComponent implements OnInit {
 
-  private firebaseDB = 'https://ng-jira-backend.firebaseio.com/data.json';
   private JiraRoot: JiraResponse;
 
   constructor(private jiraService: JiraService) { }
 
   ngOnInit() {
-    this.jiraService.getIssuesRemDB( this.firebaseDB)
-        .subscribe(
-          (jiraRoot: JiraResponse) => {
-            this.JiraRoot = jiraRoot;
-            console.log(this.JiraRoot)
-          },
-          (error) => console.log(error)
-        );
+    this.JiraRoot = this.jiraService.getIssues();
+    this.jiraService.dataChanged
+      .subscribe(
+        (jiraResponse: JiraResponse) => {
+          this.JiraRoot = jiraResponse;
+          console.log(this.JiraRoot);
+        }
+      );
   }
 
 }
