@@ -19,11 +19,15 @@ import 'rxjs/add/operator/map';
 
 export class IssueListComponent implements OnInit {
 
-  private JiraRoot: JiraResponse;
+  public JiraRoot: JiraResponse;
 
   constructor(private jiraService: JiraService) { }
 
   ngOnInit() {
+
+    this.JiraRoot = this.jiraService.getIssues();
+
+    /*
     this.jiraService.dataChanged
       .subscribe(
         (jiraResponse: JiraResponse) => {
@@ -31,6 +35,7 @@ export class IssueListComponent implements OnInit {
           console.log(this.JiraRoot);
         }
       );
+      */
   }
 
 }

@@ -1,39 +1,51 @@
 
 
 export class Priority {
-  self: string;
-  iconUrl: string;
-  name: string;
-  id: string;
+  public self: string;
+  public iconUrl: string;
+  public name: string;
+  public id: string;
 }
 
 export class Customfield16730 {
-  self: string;
-  value: string;
-  id: string;
+  public self: string;
+  public value: string;
+  public id: string;
+}
+
+export class Creator {
+  public active: any;
+  public displayName: any;
+  public emailAddress: any;
+  public key: any;
+  public name: any;
+  public self: any;
+  public timeZone: any;
 }
 
 export class Fields {
-  customfield_12130: any;
-  customfield_16732: any;
-  customfield_12131: any;
-  customfield_10230: any;
-  customfield_14430: any;
-  customfield_16730: Customfield16730;
-  fixVersions: any[];
-  customfield_12531: string;
-  resolution: any;
-  customfield_10510: string;
-  customfield_11436: string;
-  customfield_11435: string;
-  customfield_11437: string;
-  customfield_17130: any;
-  lastViewed: any;
-  customfield_10180: any;
-  customfield_17531: any;
-  customfield_17530: any;
-  customfield_17930: any;
-  priority: Priority;
+  public created: any;
+  public creator: Creator;
+  public customfield_12130: any;
+  public customfield_16732: any;
+  public customfield_12131: any;
+  public customfield_10230: any;
+  public customfield_14430: any;
+  public customfield_16730: Customfield16730;
+  public fixVersions: any[];
+  public customfield_12531: string;
+  public resolution: any;
+  public customfield_10510: string;
+  public customfield_11436: string;
+  public customfield_11435: string;
+  public customfield_11437: string;
+  public customfield_17130: any;
+  public lastViewed: any;
+  public customfield_10180: any;
+  public customfield_17531: any;
+  public customfield_17530: any;
+  public customfield_17930: any;
+  public priority: Priority;
 }
 
 export class Issue {
@@ -47,10 +59,10 @@ export class Issue {
 
 
 export class JiraResponse {
-  expand: string;
-  startAt: number;
-  maxResults: number;
-  total: number;
-  issues: Issue[];
+  public expand: string;
+  public startAt: number;
+  public maxResults: number;
+  public total: number;
+  public issues: Issue[];
 }
 

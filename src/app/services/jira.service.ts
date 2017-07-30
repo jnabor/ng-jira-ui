@@ -9,21 +9,34 @@ import { getTestBed } from '@angular/core/testing';
 @Injectable()
 export class JiraService {
     dataChanged = new EventEmitter<JiraResponse>();
-    private firebaseDB = 'https://ng-jira-backend.firebaseio.com/data.json';
-    private jiraDB = 'https://jira.atlassian.com/rest/api/2/search?jql=project=BAM'
+
+    // taking json from firebase rest api
+    //private firebaseDB = 'https://ng-jira-backend.firebaseio.com/data.json';
+    //private remoteDB = this.firebaseDB;
+
+    // taking directly from jira rest api
+    //private jiraDB = 'https://jira.atlassian.com/rest/api/2/search?jql=project=BAM'
     //private JiraRootLoc: JiraResponse = require('../../assets/bam.json');
-    //private remoteDB = this.jiraDB;
-    private remoteDB = this.firebaseDB;
-    private JiraRootRem: JiraResponse;
+
+    // take local json file from jql rest api e.g. below, with project and sprint filter
+    // https://sonabstudios.atlassian.net/rest/api/2/search?jql=project%20%3D%20OS%20AND%20Sprint%20%3D%202
+    private JiraRootLoc: JiraResponse = require('../../assets/os_sprint2.json');
+    private remoteDB = this.JiraRootLoc;
+
+
+    //private JiraRootRem: JiraResponse;
 
     constructor(private http: Http, private json: Jsonp) {
 
-      //this.uploadtoFirebase(this.JiraRootLoc, this.firebaseDB)
-      //  .subscribe(
-      //    (response) => console.log(response),
-      //    (error) => console.log(error)
-      //  );
+      /*
+      this.uploadtoFirebase(this.JiraRootLoc, this.firebaseDB)
+        .subscribe(
+          (response) => console.log(response),
+          (error) => console.log(error)
+        );
+        */
 
+        /*
       this.getIssuesRemDB(this.remoteDB)
         .subscribe(
           (jiraRoot: JiraResponse) => {
@@ -32,6 +45,7 @@ export class JiraService {
           },
           (error) => console.log(error)
         );
+        */
     }
 
     private uploadtoFirebase(db: JiraResponse, dbRemoteAddress: string) {
@@ -39,6 +53,7 @@ export class JiraService {
       return this.http.put(dbRemoteAddress, db, { headers: header});
     }
 
+    /*
     private getIssuesRemDB(dbRemoteAddress: string) {
       //return this.http.get(dbRemoteAddress)
       dbRemoteAddress = dbRemoteAddress + '?callback=JSONP_CALLBACK';
@@ -57,8 +72,9 @@ export class JiraService {
             }
         );
     }
+    */
 
     public getIssues(): JiraResponse {
-      return this.JiraRootRem;
+      return this.JiraRootLoc;
     }
 }

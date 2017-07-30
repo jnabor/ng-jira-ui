@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+
+  "name": "JIRA Reports Chrome Extension",
+  "description": "This extension creates reports based on sprints in JIRA",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "index.html",
+    "default_title": "Click here!"
+  },
+  "permissions": [],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "web_accessible_resources": [
+      "assets/css/*",
+      "assets/js/*",
+      "assets/fonts/*"
+  ]
+}
